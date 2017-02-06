@@ -84,12 +84,16 @@
 
 
 
-<meta property="og:type" content="website">
+<meta name="description" content="Apache Mina是一个能够帮助用户开发高性能和高伸缩性网络应用程序的框架。它通过Java nio技术基于TCP/IP和UDP/IP协议提供了抽象的、事件驱动的、异步的API。Mina包的简介：org.apache.mina.core.buffer用于缓冲区的IoBufferorg.apache.mina.core.serviceorg.apache.mina.transport.用于提供连接">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Song's Blog">
-<meta property="og:url" content="http://lisisong.com/index.html">
+<meta property="og:url" content="http://lisisong.com/2017/02/07/Apache Mina(一)/index.html">
 <meta property="og:site_name" content="Song's Blog">
+<meta property="og:description" content="Apache Mina是一个能够帮助用户开发高性能和高伸缩性网络应用程序的框架。它通过Java nio技术基于TCP/IP和UDP/IP协议提供了抽象的、事件驱动的、异步的API。Mina包的简介：org.apache.mina.core.buffer用于缓冲区的IoBufferorg.apache.mina.core.serviceorg.apache.mina.transport.用于提供连接">
+<meta property="og:updated_time" content="2017-02-06T17:30:11.846Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Song's Blog">
+<meta name="twitter:description" content="Apache Mina是一个能够帮助用户开发高性能和高伸缩性网络应用程序的框架。它通过Java nio技术基于TCP/IP和UDP/IP协议提供了抽象的、事件驱动的、异步的API。Mina包的简介：org.apache.mina.core.buffer用于缓冲区的IoBufferorg.apache.mina.core.serviceorg.apache.mina.transport.用于提供连接">
 
 
 
@@ -117,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://lisisong.com/"/>
+  <link rel="canonical" href="http://lisisong.com/2017/02/07/Apache Mina(一)/"/>
 
 
 
 
 
-  <title> Song's Blog </title>
+  <title>  | Song's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -154,9 +158,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -237,9 +239,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -273,9 +275,6 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/07/Apache Mina(一)/" itemprop="url">
-                  未命名
-                </a>
               
             
           </h1>
@@ -336,9 +335,7 @@
       
 
       
-        
-          
-            <p>Apache Mina是一个能够帮助用户开发高性能和高伸缩性网络应用程序的框架。它通过Java nio技术基于TCP/IP和UDP/IP协议提供了抽象的、事件驱动的、异步的API。<br>Mina包的简介：<br>org.apache.mina.core.buffer用于缓冲区的IoBufferorg.apache.mina.core.service<br>org.apache.mina.transport.<em>用于提供连接的serviceorg.apache.mina.core.session用于提供两端状态的sessionorg.apache.mina.core.filterchain<br>org.apache.mina.filter.</em>用于拦截所有IO事件和请求的filter chain和各类拦截器（在IoService和IoHandler之间）org.apache.mina.handler.<em>用于处理IO事件的handlerorg.apache.mina.core.future用于实现异步IO操作的 futureorg.apache.mina.core.polling用于实现IO轮询的的pollingorg.apache.mina.proxy.</em>用于实现代理的proxy先介绍Mina几个重要接口：</p>
+        <p>Apache Mina是一个能够帮助用户开发高性能和高伸缩性网络应用程序的框架。它通过Java nio技术基于TCP/IP和UDP/IP协议提供了抽象的、事件驱动的、异步的API。<br>Mina包的简介：<br>org.apache.mina.core.buffer用于缓冲区的IoBufferorg.apache.mina.core.service<br>org.apache.mina.transport.<em>用于提供连接的serviceorg.apache.mina.core.session用于提供两端状态的sessionorg.apache.mina.core.filterchain<br>org.apache.mina.filter.</em>用于拦截所有IO事件和请求的filter chain和各类拦截器（在IoService和IoHandler之间）org.apache.mina.handler.<em>用于处理IO事件的handlerorg.apache.mina.core.future用于实现异步IO操作的 futureorg.apache.mina.core.polling用于实现IO轮询的的pollingorg.apache.mina.proxy.</em>用于实现代理的proxy先介绍Mina几个重要接口：</p>
 <pre><code>* IoServiece ：这个接口在一个线程上负责套接字的建立，拥有自己的 Selector，监听是否有连接被建立。
 * IoProcessor ：这个接口在另一个线程上负责检查是否有数据在通道上读写，也就是说它也拥有自己的 Selector，这是与我们使用 JAVA NIO 编码时的一个不同之处，通常在 JAVA NIO 编码中，我们都是使用一个 Selector，也就是不区分 IoService与 IoProcessor 两个功能接口。另外，IoProcessor 负责调用注册在 IoService 上的过滤器，并在过滤器链之后调用 IoHandler。  
 * IoAccepter ：相当于网络应用程序中的服务器端
@@ -380,16 +377,20 @@
 <p>客户端</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</div><div class="line"><span class="keyword">import</span> java.nio.charset.Charset;</div><div class="line"><span class="keyword">import</span> org.apache.mina.core.future.ConnectFuture;</div><div class="line"><span class="keyword">import</span> org.apache.mina.filter.codec.ProtocolCodecFilter;</div><div class="line"><span class="keyword">import</span> org.apache.mina.filter.codec.textline.TextLineCodecFactory;</div><div class="line"><span class="keyword">import</span> org.apache.mina.filter.logging.LoggingFilter;</div><div class="line"><span class="keyword">import</span> org.apache.mina.transport.socket.nio.NioSocketConnector;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MinaTimeClient</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="comment">// 创建客户端连接器.</span></div><div class="line">        NioSocketConnector connector = <span class="keyword">new</span> NioSocketConnector();</div><div class="line">        connector.getFilterChain().addLast(<span class="string">"logger"</span>, <span class="keyword">new</span> LoggingFilter());</div><div class="line">        connector.getFilterChain().addLast(<span class="string">"codec"</span>, </div><div class="line">                <span class="keyword">new</span> ProtocolCodecFilter(<span class="keyword">new</span> TextLineCodecFactory(Charset.forName(<span class="string">"UTF-8"</span>))));</div><div class="line">        </div><div class="line">        <span class="comment">// 设置连接超时检查时间</span></div><div class="line">        connector.setConnectTimeoutCheckInterval(<span class="number">30</span>);</div><div class="line">        connector.setHandler(<span class="keyword">new</span> TimeClientHandler());</div><div class="line">        </div><div class="line">        <span class="comment">// 建立连接</span></div><div class="line">        ConnectFuture cf = connector.connect(<span class="keyword">new</span> InetSocketAddress(<span class="string">"192.168.2.109"</span>, <span class="number">6488</span>));</div><div class="line">        <span class="comment">// 等待连接创建完成        cf.awaitUninterruptibly();</span></div><div class="line">        </div><div class="line">        cf.getSession().write(<span class="string">"Hi Server!"</span>);</div><div class="line">        cf.getSession().write(<span class="string">"quit"</span>);</div><div class="line">        </div><div class="line">        <span class="comment">// 等待连接断开        cf.getSession().getCloseFuture().awaitUninterruptibly();</span></div><div class="line">        <span class="comment">// 释放连接        connector.dispose();</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> org.apache.mina.core.service.IoHandlerAdapter;</div><div class="line"><span class="keyword">import</span> org.apache.mina.core.session.IoSession;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimeClientHandler</span> <span class="keyword">extends</span> <span class="title">IoHandlerAdapter</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">messageReceived</span><span class="params">(IoSession session, Object message)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        String content = message.toString();</div><div class="line">        System.out.println(<span class="string">"client receive a message is : "</span> + content);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">messageSent</span><span class="params">(IoSession session, Object message)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"messageSent -&gt; ："</span> + message);</div><div class="line">    &#125;</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
@@ -398,286 +399,34 @@
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://lisisong.com/2017/01/31/如何找出你身边那些靠谱的人/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Song's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Song's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/01/31/如何找出你身边那些靠谱的人/" rel="next" title="如何找出你身边那些靠谱的人">
+                <i class="fa fa-chevron-left"></i> 如何找出你身边那些靠谱的人
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2017/01/31/如何找出你身边那些靠谱的人/" itemprop="url">
-                  如何找出你身边那些靠谱的人
-                </a>
-              
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-31T11:28:18+08:00">
-                2017-01-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/01/31/如何找出你身边那些靠谱的人/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/31/如何找出你身边那些靠谱的人/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>今天我们无论是交朋友、谈恋爱，还是和别人一起联手创业，找到靠谱的人太重要了。最近，作家雾满拦江在一篇文章里说，靠谱的人应该有这样几个特点。<br>第一个特点是对做事周期的预判。意思是说，当我们做事情的时候，会先估计一下事情的时间跨度。比如，很多年轻人，刚一工作，就立下豪言壮志，我要大干一场。等他上手的时候，发现事情没那么简单，这就是一个典型的周期误判。做好一件事情需要很长的时间，但不成熟的人会把这个时间预判的很短，结果干两天发现不对，就开始气馁了。要想准确判断一件事情的周期，需要有博弈思维，就是每想出一步，必须先假设这一步可能失败，或者需要更长的时间，要做好重新开始或者长期苦战的准备。所以靠谱的人，就是那个把事情想得最艰难，而且仍然放手去做的人。<br>第二个特点是不确定性。我们知道，一个人的人品必须是确定的，这样才让人放心。但一个人做事的方法和方向，需要的不是确定性，而是不确定性。举个例子，有个人和你说要做个婴儿奶嘴厂，你想和他一起干，先问他对项目周期的预判，如果他说很快就能赚钱，那他估计是喝多了；如果他说要做十年，你就可以问下一个问题了，这个问题就是，只能做婴儿奶嘴厂吗？如果他回答：一定要做婴儿奶嘴厂，你就要考虑一下了。但如果他回答说：那可不一定，市场变化那么快，现在我们说生产奶嘴，最后弄出避孕套来也说不准，毕竟这两个东西材料差不多。如果这个人这么想问题，说明他脑子清醒，知道自己在做什么，而且不钻牛角尖，能够顺时应变，应该是个靠谱的事业伙伴。<br>第三个特点是布局的周密性。这类人善于布闲棋，他们会做一些看起来没什么意义的事情，你问他为什么，他也说不清理由。但他会说这个事肯定有做的价值，周期也长，咱们先把坑占上，说不定什么时候就用得上。要知道，在一个漫长的周期里，肯定需要很多的资源与部件。之前做过的没什么意义的事情，到时候很可能会有令人惊讶的效果。<br>第四个特点是，接受因人成事，心态保持平和。这种人知道什么人做什么事。今天的团队概念，是没有一个统一标准的，而可能有各种各样的毛病和怪癖。这个时代的成功者有两种：一种是能够接受不同团队的不同标准，把他们看做是创新，然后自由组合；另一种则以铁腕强制规范。这两种类型各有各的优势与特点，少了哪一种，社会工业生态就出问题了。<br>第五个特点是，不用成见看待人，不用结果看待事情。不用成见看待人的意思是说，这类人对人没什么成见，不管是君子还是流氓，在他看来都差不多。因为从人性来说，君子和流氓其实都一回事。克制约束自我，就是君子；稍微放纵一下，连流氓都不如。所以这类人甚至可以和他讨厌的人共事。不用结果看待事情的意思是说，在这类人眼中，事情永远没有结果，永远处在中间状态。人也是一样，始终没有定型，始终在自我完善。<br>第六个特点是爱读书，但不死读书。这类人喜欢把书上的东西，用自己的语言表述出来，他们能把复杂的观点简化，有自己的思维体系，而且善于整合相互矛盾的观点，能跳出现实的条条框框。他们能容纳几种价值观体系，这样也行，那样也可以。<br>最后我们简单回顾一下靠谱的人的六个特点：<br>第一个，具有过人的智力，能够准确预判没做过的事情的周期。<br>第二个，不确定式思维，做事不求一个直线的结果。<br>第三个，思维周密，喜欢布闲棋。<br>第四个，接受因人成事，不拘泥。<br>第五个，对人无成见，始终在路上。<br>第六个，具有自己的实用型知识体系，化繁为简，容纳异端。<br>根据这六个特点，你可以看看自己身边有没有这样的靠谱人士。把这些人找出来，和他们结伴而行。</p>
-<p>本文源自：公众号“雾满拦江”（找个靠谱的人）<br>音频稿：宝利<br>讲述：郑磊</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://lisisong.com/2017/01/31/Hello World/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Song's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Song's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/31/Hello World/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-31T02:47:21+08:00">
-                2017-01-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/01/31/Hello World/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/31/Hello World/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
           
           </div>
@@ -685,6 +434,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/07/Apache Mina(一)/"
+           data-title="" data-url="http://lisisong.com/2017/02/07/Apache Mina(一)/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -846,6 +603,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
